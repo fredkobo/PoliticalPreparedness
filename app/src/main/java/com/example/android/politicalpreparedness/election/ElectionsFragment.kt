@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import com.example.android.politicalpreparedness.databinding.FragmentElectionBinding
 import com.example.android.politicalpreparedness.election.adapter.ElectionListAdapter
 import com.example.android.politicalpreparedness.election.adapter.ElectionListener
@@ -40,6 +41,15 @@ class ElectionsFragment : Fragment() {
         viewModel.upcomingElections.observe(viewLifecycleOwner, Observer { upcomingElections ->
             upcomingElections?.let {
                 adapter.submitList(upcomingElections)
+            }
+        })
+
+        viewModel.navigateToVoterInfo.observe(viewLifecycleOwner, Observer { election ->
+            if (election != null) {
+                findNavController().navigate(
+                    ElectionsFragmentDirections.actionElectionsFragmentToVoterInfoFragment(election)
+                )
+                viewModel.navigateToVoterInfoComplete()
             }
         })
 

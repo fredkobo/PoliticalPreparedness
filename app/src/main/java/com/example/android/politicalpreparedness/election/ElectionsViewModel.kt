@@ -42,6 +42,7 @@ class ElectionsViewModel : ViewModel() {
         viewModelScope.launch {
             try {
                 val response = electionsRepository.getUpcomingElections()
+                _upcomingElections.value = response.elections
                 Log.d(TAG, response.toString())
             } catch (e: Exception) {
                 e.message?.let { Log.d(TAG, it) }
@@ -57,6 +58,10 @@ class ElectionsViewModel : ViewModel() {
 
     fun onElectionClicked(election: Election) {
         _navigateToVoterInfo.value = election
+    }
+
+    fun navigateToVoterInfoComplete() {
+        _navigateToVoterInfo.value = null
     }
 
 }
