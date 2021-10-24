@@ -9,6 +9,25 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
-    <!-- TODO: Add necessary styles -->
+    <style name="ButtonStyle" parent="Widget.AppCompat.Button">
+        <item name="android:textAllCaps">true</item>
+        <item name="android:background">@color/colorPrimary</item>
+        <item name="android:textColor">@color/white</item>d
+    </style>
+
+    <style name="VoteHeaderStyle" parent="Widget.AppCompat.TextView">
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">@dimen/header_text_size</item>
+        <item name="android:layout_marginTop">@dimen/normal_margin</item>
+    </style>
+
+    <style name="LinkStyle" parent="Widget.AppCompat.TextView">
+        <item name="android:textColor">@color/colorLink</item>
+        <item name="android:paddingTop">@dimen/small_margin</item>
+    </style>
+
+    <style name="RepresentativeHeader" parent="VoteHeaderStyle">
+        <item name="android:textSize">20sp</item>
+    </style>
 
 </resources>

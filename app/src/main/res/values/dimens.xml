@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="default_padding">8dp</dimen>
-
-    <!-- TODO: Add necessary dimension values -->s
-
+    <dimen name="normal_margin">16dp</dimen>
+    <dimen name="small_margin">8dp</dimen>
+    <dimen name="header_size">20sp</dimen>
+    <dimen name="header_text_size">18sp</dimen>
+    <dimen name="profile_size">60dp</dimen>
+    <dimen name="icon_size">36dp</dimen>n>
 </resources>

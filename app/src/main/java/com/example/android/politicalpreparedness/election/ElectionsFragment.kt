@@ -8,15 +8,15 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import com.example.android.politicalpreparedness.database.ElectionDatabase
 import com.example.android.politicalpreparedness.databinding.FragmentElectionBinding
 import com.example.android.politicalpreparedness.election.adapter.ElectionListAdapter
 import com.example.android.politicalpreparedness.election.adapter.ElectionListener
+import com.example.android.politicalpreparedness.repository.ElectionsRepository
 
 class ElectionsFragment : Fragment() {
 
-    private val viewModel: ElectionsViewModel by lazy {
-        ViewModelProvider(this).get(ElectionsViewModel::class.java)
-    }
+    private lateinit var viewModel: ElectionsViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -24,9 +24,13 @@ class ElectionsFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 
-        //TODO: Add ViewModel values and create ViewModel
+        val application = requireNotNull(this.activity).application
+        val electionDao = ElectionDatabase.getInstance(application).electionDao
+        val repository = ElectionsRepository(electionDao)
+        val viewModelFactory = ElectionsViewModelFactory(repository)
 
-        //TODO: Add binding values
+        viewModel = ViewModelProvider(this, viewModelFactory).get(ElectionsViewModel::class.java)
+
         val binding = FragmentElectionBinding.inflate(inflater)
 
         binding.lifecycleOwner = this

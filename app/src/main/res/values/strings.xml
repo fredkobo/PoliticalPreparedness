@@ -4,7 +4,22 @@
     <string name="upcoming_elections">Upcoming Elections</string>
     <string name="find_my_representatives">Find my representatives</string>
     <string name="ballot_logo">Ballot logo</string>
-
-    <!-- TODO: Add necessary string values -->
+    <string name="election_information">Election Information</string>
+    <string name="follow_election">follow election</string>
+    <string name="unfollow_election">unfollow election</string>
+    <string name="correspondence_address">Correspondence Address</string>
+    <string name="voting_locations">"<u>Voting Locations</u>"</string>
+    <string name="ballot_information">"<u>Ballot Information</u>"</string>
+    <string name="representative_search">Representative Search</string>
+    <string name="address_line_1">Address Line 1</string>
+    <string name="address_line_2">Address Line 2</string>
+    <string name="city">City</string>
+    <string name="zip">Zip</string>
+    <string name="use_my_location">Use my location</string>
+    <string name="my_representatives">My Representatives</string>
+    <string name="go_to_twitter">Open Representative Twitter</string>
+    <string name="go_to_facebook">Open Representative facebook</string>
+    <string name="go_to_website">Open Representative website</string>
+    <string name="representative_photo">Representative Photo</string>
 
 </resources>

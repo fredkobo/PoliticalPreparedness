@@ -10,9 +10,7 @@ import com.example.android.politicalpreparedness.repository.ElectionsRepository
 import kotlinx.coroutines.launch
 
 //TODO: Construct ViewModel and provide election datasource
-class ElectionsViewModel : ViewModel() {
-
-    private val electionsRepository = ElectionsRepository()
+class ElectionsViewModel(private val repository: ElectionsRepository) : ViewModel() {
 
     companion object {
         private const val TAG = "ElectionsViewModel";
@@ -41,7 +39,7 @@ class ElectionsViewModel : ViewModel() {
     private fun getUpcomingElections() {
         viewModelScope.launch {
             try {
-                val response = electionsRepository.getUpcomingElections()
+                val response = repository.getUpcomingElections()
                 _upcomingElections.value = response.elections
                 Log.d(TAG, response.toString())
             } catch (e: Exception) {
