@@ -37,16 +37,31 @@ class ElectionsFragment : Fragment() {
 
         binding.viewModel = viewModel
 
-        val adapter = ElectionListAdapter(ElectionListener { electionId ->
+        val upcomingElectionsAdapter = ElectionListAdapter(ElectionListener { electionId ->
             viewModel.onElectionClicked(electionId)
         })
 
-        binding.upcomingElectionsRecycler.adapter = adapter
-        viewModel.upcomingElections.observe(viewLifecycleOwner, Observer { upcomingElections ->
-            upcomingElections?.let {
-                adapter.submitList(upcomingElections)
-            }
+        val savedElectionsAdapter = ElectionListAdapter(ElectionListener { electionId ->
+            viewModel.onElectionClicked(electionId)
         })
+
+        binding.upcomingElectionsRecycler.apply {
+            adapter = upcomingElectionsAdapter
+            viewModel.upcomingElections.observe(viewLifecycleOwner, Observer { upcomingElections ->
+                upcomingElections?.let {
+                    upcomingElectionsAdapter.submitList(upcomingElections)
+                }
+            })
+        }
+
+        binding.savedElectionsRecycler.apply {
+            adapter = savedElectionsAdapter
+            viewModel.savedElections.observe(viewLifecycleOwner, Observer { savedElections ->
+                savedElections?.let {
+                    savedElectionsAdapter.submitList(savedElections)
+                }
+            })
+        }
 
         viewModel.navigateToVoterInfo.observe(viewLifecycleOwner, Observer { election ->
             if (election != null) {
@@ -57,14 +72,7 @@ class ElectionsFragment : Fragment() {
             }
         })
 
-        //TODO: Link elections to voter info
-
-        //TODO: Initiate recycler adapters
-
-        //TODO: Populate recycler adapters
         return binding.root
     }
-
-    //TODO: Refresh adapters when fragment loads
 
 }
