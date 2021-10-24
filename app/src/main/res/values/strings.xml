@@ -2,6 +2,7 @@
 <resources>
     <string name="app_name">Political Preparedness</string>
     <string name="upcoming_elections">Upcoming Elections</string>
+    <string name="saved_elections">Saved Elections</string>
     <string name="find_my_representatives">Find my representatives</string>
     <string name="ballot_logo">Ballot logo</string>
     <string name="election_information">Election Information</string>
