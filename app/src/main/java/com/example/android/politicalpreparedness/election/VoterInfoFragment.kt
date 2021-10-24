@@ -72,7 +72,9 @@ class VoterInfoFragment : Fragment() {
         val i = Intent(Intent.ACTION_VIEW)
         i.data = Uri.parse(url)
         startActivity(i)
-        voterInfoViewModel.loadUrlCompleted()
-    }
 
+        if (this::voterInfoViewModel.isInitialized) {
+            voterInfoViewModel.loadUrlCompleted()
+        }
+    }
 }
