@@ -6,7 +6,7 @@
 
         <variable
             name="viewModel"
-            type="com.example.android.politicalpreparedness.representative.RepresentativeViewModel" />>
+            type="com.example.android.politicalpreparedness.representative.RepresentativeViewModel" />
     </data>
 
     <androidx.constraintlayout.motion.widget.MotionLayout
@@ -38,7 +38,7 @@
                 android:autofillHints=""
                 android:hint="@string/address_line_1"
                 android:inputType="textPostalAddress"
-                android:text="@={viewModel.address.line1}"
+                android:text="@{viewModel.address.line1}"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/search_title" />
 
@@ -49,7 +49,7 @@
                 android:autofillHints=""
                 android:hint="@string/address_line_2"
                 android:inputType="textPostalAddress"
-                android:text="@={viewModel.address.line2}"
+                android:text="@{viewModel.address.line2}"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/address_line_1_edit" />
 
@@ -60,7 +60,7 @@
                 android:autofillHints=""
                 android:hint="@string/city"
                 android:inputType="textPostalAddress"
-                android:text="@={viewModel.address.city}"
+                android:text="@{viewModel.address.city}"
                 app:layout_constraintEnd_toStartOf="@id/state_spinner"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/address_line_2_edit" />
@@ -86,17 +86,16 @@
                 android:hint="@string/zip"
                 android:inputType="number"
                 android:maxLength="5"
-                android:text="@={viewModel.address.zip}"
+                android:text="@{viewModel.address.zip}"
                 app:layout_constraintEnd_toEndOf="@id/city_edit"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/city_edit" />
 
             <Button
-                android:id="@+id/button_search"
+                android:id="@+id/find_my_reps_button"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/normal_margin"
-                android:onClick="@{() -> viewModel.callGetRepresentative(viewModel.address)}"
                 android:text="@string/find_my_representatives"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -111,7 +110,7 @@
                 android:text="@string/use_my_location"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/button_search" />
+                app:layout_constraintTop_toBottomOf="@id/find_my_reps_button" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -9,11 +9,11 @@ import android.location.Location
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
-import androidx.lifecycle.Observer
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.android.politicalpreparedness.database.ElectionDatabase
 import com.example.android.politicalpreparedness.databinding.FragmentRepresentativeBinding
@@ -54,10 +54,9 @@ class DetailFragment : Fragment() {
             LocationServices.getFusedLocationProviderClient(requireActivity())
 
         viewModel.showSnackBarErrorMessage.observe(viewLifecycleOwner, Observer { message ->
-            if(!message.isNullOrEmpty()) {
+            if (!message.isNullOrEmpty()) {
                 Snackbar.make(this.requireView(), message, Snackbar.LENGTH_LONG).show()
             }
-            viewModel.showErrorDone()
         })
 
         checkLocationPermissions()
@@ -73,9 +72,20 @@ class DetailFragment : Fragment() {
         binding.useMyLocationButton.setOnClickListener {
             val address = geoCodeLocation(lastKnownLocation!!)
             viewModel.address.postValue(address)
-            viewModel.callGetRepresentative(address)
+            viewModel.getRepresentatives(address)
+        }
 
+        binding.findMyRepsButton.setOnClickListener {
+            val address = Address(
+                binding.addressLine1Edit.text.toString(),
+                binding.addressLine2Edit.text.toString(),
+                binding.cityEdit.text.toString(),
+                binding.stateSpinner.selectedItem.toString(),
+                binding.zipEdit.text.toString()
+            )
 
+            viewModel.getRepresentatives(address)
+            hideKeyboard()
         }
         return binding.root
     }

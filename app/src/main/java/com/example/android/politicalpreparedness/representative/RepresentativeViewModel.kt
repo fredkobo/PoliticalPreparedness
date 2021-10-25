@@ -4,17 +4,16 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.android.politicalpreparedness.R
 import com.example.android.politicalpreparedness.network.models.Address
 import com.example.android.politicalpreparedness.repository.ElectionsRepository
 import com.example.android.politicalpreparedness.representative.model.Representative
+import com.example.android.politicalpreparedness.utils.SingleLiveEvent
 import kotlinx.coroutines.launch
-import java.lang.Exception
 
 class RepresentativeViewModel(val repository: ElectionsRepository) : ViewModel() {
 
     private val _representatives = MutableLiveData<List<Representative>>()
-    private val _showSnackBarErrorMessage = MutableLiveData<String>()
+    val showSnackBarErrorMessage: SingleLiveEvent<String> = SingleLiveEvent()
 
     val representatives: LiveData<List<Representative>>
         get() = _representatives
@@ -24,9 +23,6 @@ class RepresentativeViewModel(val repository: ElectionsRepository) : ViewModel()
     val loading: LiveData<Boolean>
         get() = _loading
 
-    val showSnackBarErrorMessage: LiveData<String>
-        get() = _showSnackBarErrorMessage
-
     val address = MutableLiveData<Address>()
 
     init {
@@ -34,8 +30,8 @@ class RepresentativeViewModel(val repository: ElectionsRepository) : ViewModel()
     }
 
 
-    fun callGetRepresentative(address: Address) {
-        if(validateEnteredData(address)) {
+    fun getRepresentatives(address: Address) {
+        if (validateEnteredData(address)) {
             _loading.postValue(true)
             viewModelScope.launch {
                 try {
@@ -57,27 +53,22 @@ class RepresentativeViewModel(val repository: ElectionsRepository) : ViewModel()
     private fun validateEnteredData(address: Address): Boolean {
         when {
             address.line1.isEmpty() -> {
-                _showSnackBarErrorMessage.value = "Enter address line 1"
+                showSnackBarErrorMessage.value = "Enter address line 1"
                 return false
             }
             address.city.isEmpty() -> {
-                _showSnackBarErrorMessage.value = "Enter city"
+                showSnackBarErrorMessage.value = "Enter city"
                 return false
             }
             address.state.isEmpty() -> {
-                _showSnackBarErrorMessage.value = "Enter state"
+                showSnackBarErrorMessage.value = "Enter state"
                 return false
             }
             address.zip.isEmpty() -> {
-                _showSnackBarErrorMessage.value = "Enter zip"
+                showSnackBarErrorMessage.value = "Enter zip"
                 return false
             }
             else -> return true
         }
     }
-
-    fun showErrorDone() {
-        _showSnackBarErrorMessage.value = null
-    }
-
 }
