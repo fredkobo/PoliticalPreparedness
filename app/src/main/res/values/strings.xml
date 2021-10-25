@@ -22,5 +22,7 @@
     <string name="go_to_facebook">Open Representative facebook</string>
     <string name="go_to_website">Open Representative website</string>
     <string name="representative_photo">Representative Photo</string>
+    <string name="permission_denied_explanation">You need to grant location permission in order to use location.</string>
+    <string name="settings">Settings</string>
 
 </resources>

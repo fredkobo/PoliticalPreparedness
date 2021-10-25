@@ -30,22 +30,24 @@ class RepresentativeViewModel(val repository: ElectionsRepository) : ViewModel()
     }
 
 
-    fun getRepresentatives(address: Address) {
-        if (validateEnteredData(address)) {
-            _loading.postValue(true)
-            viewModelScope.launch {
-                try {
-                    val response =
-                        repository.getRepresentatives(address = address.toFormattedString())
+    fun getRepresentatives(address: Address?) {
+        address?.apply {
+            if (validateEnteredData(address)) {
+                _loading.postValue(true)
+                viewModelScope.launch {
+                    try {
+                        val response =
+                            repository.getRepresentatives(address = address.toFormattedString())
 
-                    _representatives.value =
-                        response.offices.flatMap { office ->
-                            office.getRepresentatives(response.officials)
-                        }
-                } catch (e: Exception) {
-                    e.message
+                        _representatives.value =
+                            response.offices.flatMap { office ->
+                                office.getRepresentatives(response.officials)
+                            }
+                    } catch (e: Exception) {
+                        e.message
+                    }
+                    _loading.postValue(false)
                 }
-                _loading.postValue(false)
             }
         }
     }

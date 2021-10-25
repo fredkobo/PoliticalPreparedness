@@ -3,10 +3,13 @@ package com.example.android.politicalpreparedness.representative
 import android.Manifest
 import android.annotation.SuppressLint
 import android.content.Context
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.location.Geocoder
 import android.location.Location
+import android.net.Uri
 import android.os.Bundle
+import android.provider.Settings
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,6 +18,8 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import com.example.android.politicalpreparedness.BuildConfig
+import com.example.android.politicalpreparedness.R
 import com.example.android.politicalpreparedness.database.ElectionDatabase
 import com.example.android.politicalpreparedness.databinding.FragmentRepresentativeBinding
 import com.example.android.politicalpreparedness.network.models.Address
@@ -59,8 +64,6 @@ class DetailFragment : Fragment() {
             }
         })
 
-        checkLocationPermissions()
-
         val representativeAdapter = RepresentativeListAdapter()
         binding.representativeRecycler.apply {
             adapter = representativeAdapter
@@ -70,7 +73,8 @@ class DetailFragment : Fragment() {
         }
 
         binding.useMyLocationButton.setOnClickListener {
-            val address = geoCodeLocation(lastKnownLocation!!)
+            checkLocationPermissions()
+            val address = lastKnownLocation?.let { it1 -> geoCodeLocation(it1) }
             viewModel.address.postValue(address)
             viewModel.getRepresentatives(address)
         }
@@ -95,10 +99,24 @@ class DetailFragment : Fragment() {
         permissions: Array<String>,
         grantResults: IntArray
     ) {
-        if (requestCode == REQUEST_LOCATION_PERMISSION) {
-            if (grantResults.isNotEmpty() && (grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
-                getLocation()
-            }
+        if (
+            grantResults.isEmpty() ||
+            grantResults[0] == PackageManager.PERMISSION_DENIED
+        ) {
+            Snackbar.make(
+                this.requireView(),
+                R.string.permission_denied_explanation,
+                Snackbar.LENGTH_INDEFINITE
+            )
+                .setAction(R.string.settings) {
+                    startActivity(Intent().apply {
+                        action = Settings.ACTION_APPLICATION_DETAILS_SETTINGS
+                        data = Uri.fromParts("package", BuildConfig.APPLICATION_ID, null)
+                        flags = Intent.FLAG_ACTIVITY_NEW_TASK
+                    })
+                }.show()
+        } else {
+            getLocation()
         }
     }
 
