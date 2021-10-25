@@ -62,10 +62,7 @@ class DetailFragment : Fragment() {
 
         checkLocationPermissions()
 
-        binding.representativeRecycler.adapter = RepresentativeListAdapter()
-
         val representativeAdapter = RepresentativeListAdapter()
-
         binding.representativeRecycler.apply {
             adapter = representativeAdapter
             viewModel.representatives.observe(viewLifecycleOwner, Observer { representatives ->
