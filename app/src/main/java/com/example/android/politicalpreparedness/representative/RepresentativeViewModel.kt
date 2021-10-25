@@ -1,26 +1,83 @@
 package com.example.android.politicalpreparedness.representative
 
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.example.android.politicalpreparedness.R
+import com.example.android.politicalpreparedness.network.models.Address
+import com.example.android.politicalpreparedness.repository.ElectionsRepository
+import com.example.android.politicalpreparedness.representative.model.Representative
+import kotlinx.coroutines.launch
+import java.lang.Exception
 
-class RepresentativeViewModel: ViewModel() {
+class RepresentativeViewModel(val repository: ElectionsRepository) : ViewModel() {
 
-    //TODO: Establish live data for representatives and address
+    private val _representatives = MutableLiveData<List<Representative>>()
+    private val _showSnackBarErrorMessage = MutableLiveData<String>()
 
-    //TODO: Create function to fetch representatives from API from a provided address
+    val representatives: LiveData<List<Representative>>
+        get() = _representatives
 
-    /**
-     *  The following code will prove helpful in constructing a representative from the API. This code combines the two nodes of the RepresentativeResponse into a single official :
+    private val _loading = MutableLiveData<Boolean>()
 
-    val (offices, officials) = getRepresentativesDeferred.await()
-    _representatives.value = offices.flatMap { office -> office.getRepresentatives(officials) }
+    val loading: LiveData<Boolean>
+        get() = _loading
 
-    Note: getRepresentatives in the above code represents the method used to fetch data from the API
-    Note: _representatives in the above code represents the established mutable live data housing representatives
+    val showSnackBarErrorMessage: LiveData<String>
+        get() = _showSnackBarErrorMessage
 
-     */
+    val address = MutableLiveData<Address>()
 
-    //TODO: Create function get address from geo location
+    init {
+        _loading.value = false
+    }
 
-    //TODO: Create function to get address from individual fields
+
+    fun callGetRepresentative(address: Address) {
+        if(validateEnteredData(address)) {
+            _loading.postValue(true)
+            viewModelScope.launch {
+                try {
+                    val response =
+                        repository.getRepresentatives(address = address.toFormattedString())
+
+                    _representatives.value =
+                        response.offices.flatMap { office ->
+                            office.getRepresentatives(response.officials)
+                        }
+                } catch (e: Exception) {
+                    e.message
+                }
+                _loading.postValue(false)
+            }
+        }
+    }
+
+    private fun validateEnteredData(address: Address): Boolean {
+        when {
+            address.line1.isEmpty() -> {
+                _showSnackBarErrorMessage.value = "Enter address line 1"
+                return false
+            }
+            address.city.isEmpty() -> {
+                _showSnackBarErrorMessage.value = "Enter city"
+                return false
+            }
+            address.state.isEmpty() -> {
+                _showSnackBarErrorMessage.value = "Enter state"
+                return false
+            }
+            address.zip.isEmpty() -> {
+                _showSnackBarErrorMessage.value = "Enter zip"
+                return false
+            }
+            else -> return true
+        }
+    }
+
+    fun showErrorDone() {
+        _showSnackBarErrorMessage.value = null
+    }
 
 }

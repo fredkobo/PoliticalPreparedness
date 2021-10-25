@@ -12,13 +12,13 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:padding="8dp">
 
         <ImageView
             android:id="@+id/profile_image"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -30,13 +30,12 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
-            android:layout_marginEnd="16dp"
-            tools:text="President of the United States"
             android:text="@{representative.office.name}"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/profile_image"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="President of the United States" />
 
         <TextView
             android:id="@+id/name_text"
@@ -60,11 +59,10 @@
 
         <ImageView
             android:id="@+id/twitter_icon"
-            android:layout_width="45dp"
-            android:layout_height="45dp"
+            android:layout_width="@dimen/icon_size"
+            android:layout_height="@dimen/icon_size"
             android:layout_marginTop="16dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginBottom="16dp"
+            android:layout_marginBottom="8dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
@@ -74,8 +72,8 @@
 
         <ImageView
             android:id="@+id/facebook_icon"
-            android:layout_width="45dp"
-            android:layout_height="45dp"
+            android:layout_width="@dimen/icon_size"
+            android:layout_height="@dimen/icon_size"
             app:layout_constraintBottom_toBottomOf="@+id/twitter_icon"
             app:layout_constraintEnd_toStartOf="@+id/twitter_icon"
             app:layout_constraintHorizontal_bias="0.5"
@@ -85,8 +83,8 @@
 
         <ImageView
             android:id="@+id/www_icon"
-            android:layout_width="45dp"
-            android:layout_height="45dp"
+            android:layout_width="@dimen/icon_size"
+            android:layout_height="@dimen/icon_size"
             app:layout_constraintBottom_toBottomOf="@+id/facebook_icon"
             app:layout_constraintEnd_toStartOf="@+id/facebook_icon"
             app:layout_constraintHorizontal_bias="0.5"
