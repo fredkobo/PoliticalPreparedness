@@ -16,11 +16,12 @@
 
         <ImageView
             android:id="@+id/profile_image"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="@dimen/profile_image_size"
+            android:layout_height="@dimen/profile_image_size"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
+            app:profileImage="@{representative.official.photoUrl}"
             app:srcCompat="@drawable/ic_profile" />
 
         <TextView
@@ -58,8 +59,8 @@
 
         <ImageView
             android:id="@+id/twitter_icon"
-            android:layout_width="@dimen/icon_size"
-            android:layout_height="@dimen/icon_size"
+            android:layout_width="@dimen/link_icon_size"
+            android:layout_height="@dimen/link_icon_size"
             android:layout_marginTop="@dimen/normal_margin"
             android:layout_marginBottom="@dimen/small_margin"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -70,8 +71,8 @@
 
         <ImageView
             android:id="@+id/facebook_icon"
-            android:layout_width="@dimen/icon_size"
-            android:layout_height="@dimen/icon_size"
+            android:layout_width="@dimen/link_icon_size"
+            android:layout_height="@dimen/link_icon_size"
             android:layout_marginEnd="@dimen/small_margin"
             app:layout_constraintBottom_toBottomOf="@+id/twitter_icon"
             app:layout_constraintEnd_toStartOf="@+id/twitter_icon"
@@ -80,8 +81,8 @@
 
         <ImageView
             android:id="@+id/www_icon"
-            android:layout_width="@dimen/icon_size"
-            android:layout_height="@dimen/icon_size"
+            android:layout_width="@dimen/link_icon_size"
+            android:layout_height="@dimen/link_icon_size"
             android:layout_marginEnd="@dimen/small_margin"
             app:layout_constraintBottom_toBottomOf="@+id/facebook_icon"
             app:layout_constraintEnd_toStartOf="@+id/facebook_icon"
