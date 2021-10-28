@@ -43,7 +43,7 @@ class VoterInfoViewModel(
         }
     }
 
-    fun loadUrl(url: String) {
+    fun loadUrl(url: String?) {
         _urlBrowser.value = url
     }
 
