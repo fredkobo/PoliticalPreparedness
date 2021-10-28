@@ -30,14 +30,13 @@ import com.google.android.gms.location.LocationServices
 import com.google.android.material.snackbar.Snackbar
 import java.util.*
 
-class DetailFragment : Fragment() {
+class RepresentativeFragment : Fragment() {
 
     companion object {
         const val REQUEST_LOCATION_PERMISSION = 1000
     }
 
     private lateinit var viewModel: RepresentativeViewModel
-    private var lastKnownLocation: Location? = null
     private lateinit var fusedLocationProviderClient: FusedLocationProviderClient
 
     override fun onCreateView(
@@ -73,10 +72,14 @@ class DetailFragment : Fragment() {
         }
 
         binding.useMyLocationButton.setOnClickListener {
-            checkLocationPermissions()
-            val address = lastKnownLocation?.let { it1 -> geoCodeLocation(it1) }
-            viewModel.address.postValue(address)
-            viewModel.getRepresentatives(address)
+            if (isPermissionGranted()) {
+                getLocation()
+            } else {
+                requestPermissions(
+                    arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
+                    REQUEST_LOCATION_PERMISSION
+                )
+            }
         }
 
         binding.findMyRepsButton.setOnClickListener {
@@ -106,7 +109,7 @@ class DetailFragment : Fragment() {
             Snackbar.make(
                 this.requireView(),
                 R.string.permission_denied_explanation,
-                Snackbar.LENGTH_INDEFINITE
+                Snackbar.LENGTH_LONG
             )
                 .setAction(R.string.settings) {
                     startActivity(Intent().apply {
@@ -117,17 +120,6 @@ class DetailFragment : Fragment() {
                 }.show()
         } else {
             getLocation()
-        }
-    }
-
-    private fun checkLocationPermissions() {
-        if (isPermissionGranted()) {
-            getLocation()
-        } else {
-            requestPermissions(
-                arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
-                REQUEST_LOCATION_PERMISSION
-            )
         }
     }
 
@@ -145,7 +137,11 @@ class DetailFragment : Fragment() {
         val locationResult = fusedLocationProviderClient.lastLocation
         locationResult.addOnCompleteListener(requireActivity()) { task ->
             if (task.isSuccessful) {
-                lastKnownLocation = task.result!!
+                task.result?.let { location ->
+                    val address = geoCodeLocation(location)
+                    viewModel.address.postValue(address)
+                    viewModel.getRepresentatives(address)
+                }
             }
         }
     }
@@ -169,5 +165,4 @@ class DetailFragment : Fragment() {
         val imm = activity?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
         imm.hideSoftInputFromWindow(view!!.windowToken, 0)
     }
-
 }
