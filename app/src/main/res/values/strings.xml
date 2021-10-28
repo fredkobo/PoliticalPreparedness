@@ -24,5 +24,10 @@
     <string name="representative_photo">Representative Photo</string>
     <string name="permission_denied_explanation">You need to grant location permission in order to use location.</string>
     <string name="settings">Settings</string>
+    <string name="error_enter_address_line_1">"Enter address line 1"</string>
+    <string name="error_enter_city">"Enter city"</string>
+    <string name="error_enter_state">"Enter state"</string>
+    <string name="error_enter_zip">"Enter zip"</string>
+    <string name="error_could_not_load_reps">Error: could not load representatives for area</string>
 
 </resources>

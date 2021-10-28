@@ -57,10 +57,8 @@ class RepresentativeFragment : Fragment() {
         fusedLocationProviderClient =
             LocationServices.getFusedLocationProviderClient(requireActivity())
 
-        viewModel.showSnackBarErrorMessage.observe(viewLifecycleOwner, Observer { message ->
-            if (!message.isNullOrEmpty()) {
-                Snackbar.make(this.requireView(), message, Snackbar.LENGTH_LONG).show()
-            }
+        viewModel.showSnackBarErrorMessage.observe(viewLifecycleOwner, Observer { string ->
+            Snackbar.make(this.requireView(), getString(string), Snackbar.LENGTH_LONG).show()
         })
 
         val representativeAdapter = RepresentativeListAdapter()
