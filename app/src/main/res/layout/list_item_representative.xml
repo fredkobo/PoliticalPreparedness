@@ -26,7 +26,7 @@
 
         <TextView
             android:id="@+id/rep_title_text"
-            android:layout_width="0dp"
+            android:layout_width="@dimen/zero_space"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/normal_margin"
             android:layout_marginTop="@dimen/normal_margin"

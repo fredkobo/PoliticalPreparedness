@@ -43,7 +43,7 @@
         <TextView
             android:id="@+id/state_header"
             style="@style/VoteHeaderStyle"
-            android:layout_width="0dp"
+            android:layout_width="@dimen/zero_space"
             android:layout_height="wrap_content"
             android:text="@string/election_information"
             app:goneIfNull="@{viewModel.voterInfo.state}"
@@ -54,7 +54,7 @@
         <TextView
             android:id="@+id/state_locations"
             style="@style/LinkStyle"
-            android:layout_width="0dp"
+            android:layout_width="@dimen/zero_space"
             android:layout_height="wrap_content"
             android:onClick="@{()-> viewModel.loadUrl(viewModel.voterInfo.state.get(0).electionAdministrationBody.votingLocationFinderUrl)}"
             android:text="@string/voting_locations"
@@ -66,7 +66,7 @@
         <TextView
             android:id="@+id/state_ballot"
             style="@style/LinkStyle"
-            android:layout_width="0dp"
+            android:layout_width="@dimen/zero_space"
             android:layout_height="wrap_content"
             android:onClick="@{()-> viewModel.loadUrl(viewModel.voterInfo.state.get(0).electionAdministrationBody.ballotInfoUrl)}"
             android:text="@string/ballot_information"
@@ -85,7 +85,7 @@
         <TextView
             android:id="@+id/state_correspondence_header"
             style="@style/VoteHeaderStyle"
-            android:layout_width="0dp"
+            android:layout_width="@dimen/zero_space"
             android:layout_height="wrap_content"
             android:text="@string/correspondence_address"
             app:layout_constraintEnd_toEndOf="@+id/election_date"
@@ -94,7 +94,7 @@
 
         <TextView
             android:id="@+id/address"
-            android:layout_width="0dp"
+            android:layout_width="@dimen/zero_space"
             android:layout_height="wrap_content"
             app:layout_constraintBottom_toTopOf="@+id/button"
             app:layout_constraintEnd_toEndOf="@+id/election_date"
@@ -106,7 +106,7 @@
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/button"
             style="@style/ButtonStyle"
-            android:layout_width="0dp"
+            android:layout_width="@dimen/zero_space"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/small_margin"
             android:onClick="@{() -> viewModel.toggleFollow(viewModel.voterInfo.election,viewModel.isFollowing())}"

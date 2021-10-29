@@ -15,8 +15,8 @@
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/upcoming_elections_recycler"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
+            android:layout_width="@dimen/zero_space"
+            android:layout_height="@dimen/zero_space"
             android:layout_marginStart="@dimen/normal_margin"
             android:layout_marginTop="@dimen/small_margin"
             android:layout_marginEnd="@dimen/normal_margin"
@@ -42,8 +42,8 @@
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/saved_elections_recycler"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
+            android:layout_width="@dimen/zero_space"
+            android:layout_height="@dimen/zero_space"
             android:layout_marginStart="@dimen/normal_margin"
             android:layout_marginTop="@dimen/small_margin"
             android:layout_marginEnd="@dimen/normal_margin"

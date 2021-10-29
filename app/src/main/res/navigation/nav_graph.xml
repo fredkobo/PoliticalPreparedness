@@ -9,7 +9,7 @@
     <fragment
         android:id="@+id/launchFragment"
         android:name="com.example.android.politicalpreparedness.launch.LaunchFragment"
-        android:label="fragment_launch"
+        android:label="@string/label_fragment_launch"
         tools:layout="@layout/fragment_launch">
         <action
             android:id="@+id/action_launchFragment_to_representativeFragment"
@@ -22,12 +22,12 @@
     <fragment
         android:id="@+id/representativeFragment"
         android:name="com.example.android.politicalpreparedness.representative.RepresentativeFragment"
-        android:label="fragment_representative"
-        tools:layout="@layout/fragment_representative"></fragment>
+        android:label="@string/label_fragment_representative"
+        tools:layout="@layout/fragment_representative"/>
     <fragment
         android:id="@+id/voterInfoFragment"
         android:name="com.example.android.politicalpreparedness.election.VoterInfoFragment"
-        android:label="fragment_voter_info">
+        android:label="@string/label_fragment_voter_info">
         <argument
             android:name="arg_election"
             app:argType="com.example.android.politicalpreparedness.network.models.Election" />
@@ -35,7 +35,7 @@
     <fragment
         android:id="@+id/electionsFragment"
         android:name="com.example.android.politicalpreparedness.election.ElectionsFragment"
-        android:label="fragment_elections">
+        android:label="@string/label_fragment_elections">
         <action
             android:id="@+id/action_electionsFragment_to_voterInfoFragment"
             app:destination="@id/voterInfoFragment" />

@@ -29,5 +29,9 @@
     <string name="error_enter_state">"Enter state"</string>
     <string name="error_enter_zip">"Enter zip"</string>
     <string name="error_could_not_load_reps">Error: could not load representatives for area</string>
+    <string name="label_fragment_launch">Launch</string>
+    <string name="label_fragment_representative">My Representatives</string>
+    <string name="label_fragment_voter_info">Voter Info</string>
+    <string name="label_fragment_elections">Upcoming Elections</string>
 
 </resources>

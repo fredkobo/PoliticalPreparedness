@@ -24,7 +24,7 @@
         <Button
             android:id="@+id/upcoming_elections_button"
             style="@style/ButtonStyle"
-            android:layout_width="0dp"
+            android:layout_width="@dimen/zero_space"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/normal_margin"
             android:layout_marginEnd="@dimen/normal_margin"
@@ -37,7 +37,7 @@
         <Button
             android:id="@+id/find_representatives_button"
             style="@style/ButtonStyle"
-            android:layout_width="0dp"
+            android:layout_width="@dimen/zero_space"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/normal_margin"
             android:layout_marginEnd="@dimen/normal_margin"
