@@ -20,6 +20,7 @@ class RepresentativeViewModel(val repository: ElectionsRepository) : ViewModel()
 
     private val _representatives = MutableLiveData<List<Representative>>()
     val showSnackBarErrorMessage: SingleLiveEvent<Int> = SingleLiveEvent()
+    val hideKeyboard : SingleLiveEvent<Boolean> = SingleLiveEvent()
 
     val representatives: LiveData<List<Representative>>
         get() = _representatives
@@ -57,6 +58,7 @@ class RepresentativeViewModel(val repository: ElectionsRepository) : ViewModel()
                     _loading.postValue(false)
                 }
             }
+            hideKeyboard.value = true
         }
     }
 

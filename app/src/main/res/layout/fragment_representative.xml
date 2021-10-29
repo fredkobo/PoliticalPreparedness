@@ -93,6 +93,7 @@
                 android:layout_width="@dimen/zero_space"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/normal_margin"
+                android:onClick="@{() -> viewModel.getRepresentatives(viewModel.address)}"
                 android:text="@string/find_my_representatives"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

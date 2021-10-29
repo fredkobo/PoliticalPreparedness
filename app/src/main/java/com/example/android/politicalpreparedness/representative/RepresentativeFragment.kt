@@ -14,6 +14,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
+import android.widget.AdapterView
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -57,18 +58,30 @@ class RepresentativeFragment : Fragment() {
         fusedLocationProviderClient =
             LocationServices.getFusedLocationProviderClient(requireActivity())
 
-        viewModel.showSnackBarErrorMessage.observe(viewLifecycleOwner, Observer { string ->
-            Snackbar.make(this.requireView(), getString(string), Snackbar.LENGTH_LONG).show()
-        })
+        with(viewModel) {
+            showSnackBarErrorMessage.observe(viewLifecycleOwner, Observer { string ->
+                Snackbar.make(
+                    this@RepresentativeFragment.requireView(),
+                    getString(string),
+                    Snackbar.LENGTH_LONG
+                ).show()
+            })
+
+            hideKeyboard.observe(viewLifecycleOwner, Observer {
+                hideKeyboard()
+            })
+        }
 
         val representativeAdapter = RepresentativeListAdapter()
 
         with(binding) {
             representativeRecycler.apply {
                 adapter = representativeAdapter
-                viewModel?.representatives?.observe(viewLifecycleOwner, Observer { representatives ->
-                    representativeAdapter.submitList(representatives)
-                })
+                viewModel?.representatives?.observe(
+                    viewLifecycleOwner,
+                    Observer { representatives ->
+                        representativeAdapter.submitList(representatives)
+                    })
             }
 
             useMyLocationButton.setOnClickListener {
@@ -82,17 +95,19 @@ class RepresentativeFragment : Fragment() {
                 }
             }
 
-            findMyRepsButton.setOnClickListener {
-                val address = Address(
-                    addressLine1Edit.text.toString(),
-                    addressLine2Edit.text.toString(),
-                    cityEdit.text.toString(),
-                    stateSpinner.selectedItem.toString(),
-                    zipEdit.text.toString()
-                )
+            stateSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+                override fun onNothingSelected(parent: AdapterView<*>?) {
+                    viewModel?.address?.value?.state = binding.stateSpinner.selectedItem as String
+                }
 
-                viewModel?.getRepresentatives(address)
-                hideKeyboard()
+                override fun onItemSelected(
+                    parent: AdapterView<*>?,
+                    view: View?,
+                    position: Int,
+                    id: Long
+                ) {
+                    viewModel?.address?.value?.state = binding.stateSpinner.selectedItem as String
+                }
             }
         }
 
