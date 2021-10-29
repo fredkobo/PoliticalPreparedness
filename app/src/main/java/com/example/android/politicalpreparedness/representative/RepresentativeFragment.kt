@@ -84,11 +84,11 @@ class RepresentativeFragment : Fragment() {
 
             findMyRepsButton.setOnClickListener {
                 val address = Address(
-                    binding.addressLine1Edit.text.toString(),
-                    binding.addressLine2Edit.text.toString(),
-                    binding.cityEdit.text.toString(),
-                    binding.stateSpinner.selectedItem.toString(),
-                    binding.zipEdit.text.toString()
+                    addressLine1Edit.text.toString(),
+                    addressLine2Edit.text.toString(),
+                    cityEdit.text.toString(),
+                    stateSpinner.selectedItem.toString(),
+                    zipEdit.text.toString()
                 )
 
                 viewModel?.getRepresentatives(address)

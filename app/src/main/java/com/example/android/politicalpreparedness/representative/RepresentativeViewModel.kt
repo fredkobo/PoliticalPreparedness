@@ -33,6 +33,7 @@ class RepresentativeViewModel(val repository: ElectionsRepository) : ViewModel()
 
     init {
         _loading.value = false
+        address.value = Address("","","","","")
     }
 
 
