@@ -62,36 +62,40 @@ class RepresentativeFragment : Fragment() {
         })
 
         val representativeAdapter = RepresentativeListAdapter()
-        binding.representativeRecycler.apply {
-            adapter = representativeAdapter
-            viewModel.representatives.observe(viewLifecycleOwner, Observer { representatives ->
-                representativeAdapter.submitList(representatives)
-            })
-        }
 
-        binding.useMyLocationButton.setOnClickListener {
-            if (isPermissionGranted()) {
-                getLocation()
-            } else {
-                requestPermissions(
-                    arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
-                    REQUEST_LOCATION_PERMISSION
+        with(binding) {
+            representativeRecycler.apply {
+                adapter = representativeAdapter
+                viewModel?.representatives?.observe(viewLifecycleOwner, Observer { representatives ->
+                    representativeAdapter.submitList(representatives)
+                })
+            }
+
+            useMyLocationButton.setOnClickListener {
+                if (isPermissionGranted()) {
+                    getLocation()
+                } else {
+                    requestPermissions(
+                        arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
+                        REQUEST_LOCATION_PERMISSION
+                    )
+                }
+            }
+
+            findMyRepsButton.setOnClickListener {
+                val address = Address(
+                    binding.addressLine1Edit.text.toString(),
+                    binding.addressLine2Edit.text.toString(),
+                    binding.cityEdit.text.toString(),
+                    binding.stateSpinner.selectedItem.toString(),
+                    binding.zipEdit.text.toString()
                 )
+
+                viewModel?.getRepresentatives(address)
+                hideKeyboard()
             }
         }
 
-        binding.findMyRepsButton.setOnClickListener {
-            val address = Address(
-                binding.addressLine1Edit.text.toString(),
-                binding.addressLine2Edit.text.toString(),
-                binding.cityEdit.text.toString(),
-                binding.stateSpinner.selectedItem.toString(),
-                binding.zipEdit.text.toString()
-            )
-
-            viewModel.getRepresentatives(address)
-            hideKeyboard()
-        }
         return binding.root
     }
 
